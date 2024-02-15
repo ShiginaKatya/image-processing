@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Image processing</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="content">
+            <header class="header">
+                <button class="open" id="callback-button">Открыть изображение</button>
+            </header>
+            <div class="modal" id="modal-1">
+                <div class="modal_title">
+                    <p class="title">Открыть изображение</p>
+                    <button class="close" id="close-button"></button>
+                </div>
+                <p class="dop">выберите файл или добавьте url изображения</p>
+                <form id="image-form" class="form">
+                    <input id="i-f" class="i-f" name="image" type="file">
+                    <label class="url" for="i-u">URL изображения</label>
+                    <input class="i-u" id="i-u" type="url" name="rl" id="rl">
+                    <!-- <button onclick="clearForm()" id="reset-button">Очистить</button> -->
+                    <input type="submit" class="sub" value="Открыть" >
+                </form>
+            </div>
+            <div class="container">
+                <canvas class="image" id="image" width="0"></canvas>
+            </div>
+        </div>
+            <div class="footer">
+                <ul class="func">
+                    <li class="sizes">
+                        <p class="text">Размер изображения:</p>
+                        <p class="size"></p>
+                    </li>
+                    <li class="setting">
+                        <div class="co">
+                            <p class="text">Цвет</p>
+                            <p class="rgb"></p>
+                            <div class="color-real"></div>
+                            
+                        </div>
+                        <div class="xy">
+                            <p class="text">Координаты</p>
+                            <p class="coordinate"><p>
+                        </div>
+                        
+                    </li>
+                    
+                </ul>
+                
+            </div>
+        
+    </div>
+<script>
+    
+    document.addEventListener('DOMContentLoaded', () => {  
+ 
+
+ let callBackButton = document.getElementById('callback-button');
+
+ let closeButton = document.getElementById('close-button');
+
+ let resetButton = document.getElementById('reset-button')
+
+
+ let modal1 = document.getElementById('modal-1');
+
+
+ let subButton = modal1.getElementsByClassName('sub')[0];
+
+//  // Тег body для запрета прокрутки
+//  let tagBody = document.getElementsByTagName('body');
+
+ let iF = document.getElementById('i-f');
+ let iU = document.getElementById('i-u')
+//  iF.addEventListener('input', function (e) {
+// 	if (e.target.value) {
+//   	iU.setAttribute('disabled', true);
+//   } else {
+//   	iU.removeAttribute('disabled');
+//   }
+// });
+
+// function clearForm() {
+    
+//     document.getElementById('iF').value = '';
+//     document.getElementById('iU').value = '';
+//   }
+
+// iU.addEventListener('input', function (e) {
+// 	if (e.target.value) {
+//   	iF.setAttribute('disabled', true);
+//   } else {
+//   	iF.removeAttribute('disabled');
+//   }
+// });
+
+ callBackButton.onclick = function (e) {
+   e.preventDefault();
+   modal1.classList.add('modal_active');
+
+}
+
+closeButton.onclick = function(e){
+    e.preventDefault();
+    modal1.classList.remove('modal_active');
+}
+const imgForm = document.querySelector("#image-form");
+imgForm.addEventListener("submit", showFile)
+
+function showFile(e) {
+    e.preventDefault();
+    modal1.classList.remove('modal_active');
+    // imgForm.reset()
+    
+    const fd = new FormData(e.target);
+    const fdEntries = [...fd.entries()];
+    imgForm.reset()
+    const img = new Image()
+    // file = fdEntries[1][1];
+    let file = ""
+    let ob = ""
+         
+    if (fdEntries[0][1].name !== '') {
+        file = fdEntries[0][1];
+        objectURL = URL.createObjectURL(file);
+        ob = objectURL
+        console.log(ob)
+            }
+    if (fdEntries[1][1] !== '' ){
+        file = fdEntries[1][1]
+        ob=file
+        console.log(file)
+}     
+    console.log(ob)
+    img.crossOrigin = "Anonymous";
+    img.src = ob
+
+    const canvas = document.getElementById("image");
+    const context = canvas.getContext("2d");
+    img.onload = () => {
+        canvas.width = img.width
+        canvas.height = img.height
+        context.drawImage(img, 0, 0, img.width, img.height);
+        document.querySelector('.size').innerHTML = `${canvas.width} x ${canvas.height}`;
+        }
+    // document.querySelector('.size').innerHTML = `Width: ${canvas.width*2}, Height: ${canvas.height*2}`;
+            
+  }
+  const canvas = document.getElementById("image");
+        canvas.addEventListener('mousemove', (e) => {
+            const ctx = canvas.getContext("2d");
+            const x = e.offsetX;
+            const y = e.offsetY;
+            const img_data = ctx.getImageData(x, y, 1, 1);//ImageData
+            const pix = img_data.data;
+            // console.dir(pix)
+            const red = pix[0];
+            const green = pix[1];
+            const blue = pix[2];
+            const alpha = pix[3];
+            
+            document.querySelector('.rgb').innerHTML = `R: ${red}, G: ${green}, B: ${blue}`;
+            document.querySelector('.color-real').style.backgroundColor = `rgba(${pix.join(',')})`
+            document.querySelector('.coordinate').innerHTML = `X: ${x}, Y: ${y}`;
+            // document.querySelector('.size').innerHTML = `Width: ${canvas.width*2}, Height: ${canvas.height*2}`;
+            // document.querySelector('.container').style.height = canvas.height/2; 
+        })
+
+
+
+
+});
+    </script>
+    <div>
+
+    </div>
+</body>
+</html>
