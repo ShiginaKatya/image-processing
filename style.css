@@ -15,18 +15,18 @@ html,
 body {
   height: 100%;
 }
-.wrapper {
+/* .container {
   position: relative;
   min-height: 100%;
   max-width: 1300px;
-  margin:  0 auto;
-}
+  margin:  40 auto;
+} */
 .content {
   min-height: calc(100vh - 40px);
   
 }
 .footer {
-  position: sticky;
+  position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -38,25 +38,32 @@ body {
   display: flex;
   justify-content: space-between;
   margin: 10px;
+  align-items: center;
 }
 .setting{
   display: flex;
   gap: 40px;
+  align-items: center;
 }
 .sizes{
   display: flex;
   gap: 10px;
+  align-items: center;
 }
 
 .container{
   display: flex;
   align-items: center;
-  min-height: 80vh;
+  height: calc(100vh - 40px);
   justify-content: center;
+  /* margin: 40px; */
+  align-items: center;
 }
 .image{
   margin: auto;
+  padding: 40px;
   display: block;
+  overflow-x: visible;
 }
 .form{
   display: grid;
@@ -72,6 +79,8 @@ body {
   align-items: center;
   width: 100%;
   position: fixed;
+  top: 0;
+  left: 0;
 
 }
 .open{
@@ -92,43 +101,43 @@ body {
 }
 
 .modal {
-    position: absolute;
-    visibility: hidden;
-    opacity: 0;
-    transition: .3s;
-    top: -1000px;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1000;
-    background: white;
-    border: gray 1px solid;
-    width: 300px;
-    height: 250px;
-    margin: auto;
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  transition: .3s;
+  top: -1000px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  background: white;
+  border: gray 1px solid;
+  width: 300px;
+  height: 250px;
+  margin: auto;
     /* display: flex;
     justify-content: center;
     align-items: flex-start; */
     /* overflow-y: scroll; */
     
-  }
+}
    
-  .modal_active {
-    position: fixed; 
-    top: 0;
-    visibility: visible;
-    opacity: 1;
-    transition: .3s;
-  }
+.modal_active {
+  position: fixed; 
+  top: 0;
+  visibility: visible;
+  opacity: 1;
+  transition: .3s;
+}
 .modal_title{
   display: flex;
   justify-content: space-between;
   padding: 10px 15px;
   border-bottom: gray 1px solid;
 }
-  .hidden {
-    overflow: hidden;
-  }
+.hidden {
+  overflow: hidden;
+}
 .close{
   width: 12px;
   height: 12px;
@@ -164,4 +173,7 @@ body {
 }
 .i-u{
   height: 20px;
+}
+.text, .rgb{
+  margin: auto;
 }
