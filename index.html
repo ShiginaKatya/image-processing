@@ -11,6 +11,8 @@
     <div class="wrapper">
         <header class="header">
             <button class="open" id="callback-button">Открыть изображение</button>
+            <button class="open" id="scale-button">Изменить размер</button>
+            <a  id="save-button" class="open" >Сохранить</a>
         </header>
         <div class="content">
             <div class="modal" id="modal-1">
@@ -27,6 +29,49 @@
                     <input type="submit" class="sub" id="sub" value="Открыть" >
                 </form>
             </div>
+            <dialog class="scale_modal" id="scale-dialog">
+                <div class="modal_title">
+                    <p class="title">Изменить размер</p>
+                    <button class="close" id="close-dialog"></button>
+                </div>
+                <div class="size_parameter">
+                    <p class="dop_size">Исходный размер</p>
+                    <p class="img-size"></p>
+                </div>
+                <div class="size_parameter">
+                    <p class="dop_size">Измененный размер</p>
+                    <p class="scale-size"></p>
+                </div>
+                <form id="scale-form"  class="form">
+                    <select name="" id="measure">
+                        <option value="px">Пиксель</option>
+                        <option value="%">Проценты</option>
+                    </select>
+                    <fieldset class="parameters">
+                        <div class="groups">
+                            <label for="">Ширина</label>
+                            <input class="inp" id="numWidth" type="number">
+                        </div>
+                        <div class="groups">
+                            <label for="">Высота</label>
+                            <input class="inp" id="numHeight" type="number"> 
+                        </div>
+                    </fieldset>
+                    <label>
+                        <input class="check"  id="key" type="checkbox" checked />
+                        Cохранить пропорции
+                    </label>
+                    <div class="method">
+                        <select clas name="" id="">
+                            <option value="">Ближайший сосед</option>
+                        </select>
+                        <button class="tooltip">?
+                            <span class="tooltiptext">Для каждого пикселя конечного изображения выбирается один пиксель исходного, наиболее близкий к его положению с учетом масштабирования.</span>
+                        </button>
+                    </div>
+                    <input type="button" class="sub" id="confirm" value="ОК">
+                </form>
+            </dialog>
             <div class="container">
                 <canvas class="image" id="image" width="0"></canvas>
             </div>
@@ -36,6 +81,11 @@
                     <li class="sizes">
                         <p class="text">Размер изображения:</p>
                         <p class="size"></p>
+                        <div class="scale_group">
+                            <p class="text">Масштаб</p>
+                            <input type="range" id="scale" name="scale" min="10" step="10" max="300" value="100"  />
+                            <p class="range-value"></p>
+                        </div>
                     </li>
                     <li class="setting">
                         <div class="co">
